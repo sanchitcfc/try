@@ -16,7 +16,7 @@ def dbmain():
     st.write("Read Data")
     df_og = pd.read_csv('sample_data.csv')
 
-    st.write(df)
+    st.write(df_og)
 
     df_og.Label.value_counts()
 
