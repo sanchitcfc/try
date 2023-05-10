@@ -58,6 +58,7 @@ def dbmain():
     st.write("Split train set and test set")
 
     labelencoder = LabelEncoder()
+    y_train = encoder.fit_transform(y_train)
     df['Label'] = df['Label'].astype(str)
     df.iloc[:, -1] = labelencoder.fit_transform(df.iloc[:, -1])
     X = df.drop(['Label'], axis=1).values 
