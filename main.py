@@ -10,6 +10,8 @@ from sklearn.metrics import f1_score
 from sklearn.ensemble import RandomForestClassifier,ExtraTreesClassifier
 from sklearn.tree import DecisionTreeClassifier
 from imblearn.over_sampling import SMOTE
+from sklearn.preprocessing import LabelEncoder
+
 
 
 def dbmain():
@@ -56,6 +58,7 @@ def dbmain():
     st.write("Split train set and test set")
 
     labelencoder = LabelEncoder()
+    df['Label'] = df['Label'].astype(str)
     df.iloc[:, -1] = labelencoder.fit_transform(df.iloc[:, -1])
     X = df.drop(['Label'],axis=1).values 
     y = df.iloc[:, -1].values.reshape(-1,1)
