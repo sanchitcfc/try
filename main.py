@@ -14,11 +14,11 @@ from imblearn.over_sampling import SMOTE
 
 def dbmain():
     st.write("Read Data")
-    df = pd.read_csv('sample_data.csv')
+    df_og = pd.read_csv('sample_data.csv')
 
     st.write(df)
 
-    df.Label.value_counts()
+    df_og.Label.value_counts()
 
     st.write("Data sampling")
 
