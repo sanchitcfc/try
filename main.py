@@ -14,6 +14,7 @@ from sklearn.preprocessing import LabelEncoder
 
 
 
+
 def dbmain():
     st.write("Read Data")
     df_og = pd.read_csv('sample_data.csv')
@@ -58,13 +59,15 @@ def dbmain():
     st.write("Split train set and test set")
 
     labelencoder = LabelEncoder()
-    y_train = encoder.fit_transform(y_train)
     df['Label'] = df['Label'].astype(str)
     df.iloc[:, -1] = labelencoder.fit_transform(df.iloc[:, -1])
     X = df.drop(['Label'], axis=1).values 
     y = df.iloc[:, -1].values.reshape(-1, 1)
     y = np.ravel(y)
     X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8, test_size=0.2, random_state=0, stratify=y)
+    
+    encoder = LabelEncoder()
+    y_train = encoder.fit_transform(y_train)
 
 
     st.write(X_train.shape)
@@ -318,6 +321,7 @@ def dbmain():
 
 
     stk = RandomForestClassifier().fit(x_train, y_train)
+    y_test = encoder.transform(y_test)
     y_predict=stk.predict(x_test)
     y_true=y_test
     stk_score=accuracy_score(y_true,y_predict)
