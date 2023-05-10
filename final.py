@@ -68,7 +68,8 @@ def db1():
     df_BruteForce = df_BruteForce.sample(n=None, frac=0.2, replace=False, weights=None, random_state=None, axis=0)
 
 
-    df_s = pd.concat([df_BENIGN, df_DoS, df_PortScan, df_BruteForce, df_minor])
+    df_s = df_BENIGN.append(df_DoS).append(df_PortScan).append(df_BruteForce).append(df_minor)
+
 
 
     df_s = df_s.sort_index()
