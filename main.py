@@ -22,14 +22,14 @@ def dbmain():
 
     st.write("Data sampling")
 
-    df_minor = df[(df['Label']=='WebAttack')|(df['Label']=='Bot')|(df['Label']=='Infiltration')]
-    df_BENIGN = df[(df['Label']=='BENIGN')]
+    df_minor = df_og[(df_og['Label']=='WebAttack')|(df_og['Label']=='Bot')|(df_og['Label']=='Infiltration')]
+    df_BENIGN = df_og[(df_og['Label']=='BENIGN')]
     df_BENIGN = df_BENIGN.sample(n=None, frac=0.01, replace=False, weights=None, random_state=None, axis=0)
-    df_DoS = df[(df['Label']=='DoS')]
+    df_DoS = df_og[(df_og['Label']=='DoS')]
     df_DoS = df_DoS.sample(n=None, frac=0.05, replace=False, weights=None, random_state=None, axis=0)
-    df_PortScan = df[(df['Label']=='PortScan')]
+    df_PortScan = df_og[(df_og['Label']=='PortScan')]
     df_PortScan = df_PortScan.sample(n=None, frac=0.05, replace=False, weights=None, random_state=None, axis=0)
-    df_BruteForce = df[(df['Label']=='BruteForce')]
+    df_BruteForce = df_og[(df_og['Label']=='BruteForce')]
     df_BruteForce = df_BruteForce.sample(n=None, frac=0.2, replace=False, weights=None, random_state=None, axis=0)
 
     df_s = df_BENIGN.append(df_DoS).append(df_PortScan).append(df_BruteForce).append(df_minor)
