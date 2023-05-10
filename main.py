@@ -60,10 +60,11 @@ def dbmain():
     labelencoder = LabelEncoder()
     df['Label'] = df['Label'].astype(str)
     df.iloc[:, -1] = labelencoder.fit_transform(df.iloc[:, -1])
-    X = df.drop(['Label'],axis=1).values 
-    y = df.iloc[:, -1].values.reshape(-1,1)
-    y=np.ravel(y)
-    X_train, X_test, y_train, y_test = train_test_split(X,y, train_size = 0.8, test_size = 0.2, random_state = 0,stratify = y)
+    X = df.drop(['Label'], axis=1).values 
+    y = df.iloc[:, -1].values.reshape(-1, 1)
+    y = np.ravel(y)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8, test_size=0.2, random_state=0, stratify=y)
+
 
     st.write(X_train.shape)
 
@@ -72,7 +73,7 @@ def dbmain():
 
 
     st.write("Oversampling")
-    smote=SMOTE(n_jobs=-1,sampling_strategy={4:1500})
+    smote = SMOTE(n_jobs=-1, sampling_strategy={4: 1500})
     X_train, y_train = smote.fit_resample(X_train, y_train)
     pd.Series(y_train).value_counts()
 
@@ -214,7 +215,7 @@ def dbmain():
 
     X_fs = df[fs].values
 
-    X_train, X_test, y_train, y_test = train_test_split(X_fs,y, train_size = 0.8, test_size = 0.2, random_state = 0,stratify = y)
+    X_train, X_test, y_train, y_test = train_test_split(X_fs, y, train_size=0.8, test_size=0.2, random_state=0, stratify=y)
 
     X_train.shape
 
@@ -223,7 +224,7 @@ def dbmain():
 
     st.write("OverSampling")
 
-    smote=SMOTE(n_jobs=-1,sampling_strategy={4:1500})
+    smote = SMOTE(n_jobs=-1, sampling_strategy={4: 1500})
     X_train, y_train = smote.fit_resample(X_train, y_train)
     pd.Series(y_train).value_counts()
     st.write(pd.Series(y_train).value_counts())
@@ -311,8 +312,9 @@ def dbmain():
     et_test=et_test.reshape(-1, 1)
     rf_test=rf_test.reshape(-1, 1)
 
-    x_train = np.concatenate(( dt_train, et_train, rf_train), axis=1)
-    x_test = np.concatenate(( dt_test, et_test, rf_test), axis=1)
+    x_train = np.concatenate((dt_train, et_train, rf_train), axis=1)
+    x_test = np.concatenate((dt_test, et_test, rf_test), axis=1)
+
 
     stk = RandomForestClassifier().fit(x_train, y_train)
     y_predict=stk.predict(x_test)
